@@ -72,12 +72,27 @@ except ImportError:
 
 # Initialize Pygame with error handling
 try:
+    import os
+    # Set dummy drivers for headless environments
+    if os.environ.get('SDL_VIDEODRIVER') == 'dummy':
+        os.environ.setdefault('SDL_AUDIODRIVER', 'dummy')
+    
     pygame.init()
-    pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
+    
+    # Only initialize mixer if not in headless mode
+    if os.environ.get('SDL_AUDIODRIVER') != 'dummy':
+        pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=512)
+    
     print("✅ Pygame initialized successfully")
 except pygame.error as e:
     print(f"❌ Failed to initialize Pygame: {e}")
-    sys.exit(1)
+    # In test mode, continue anyway
+    if '--test-mode' not in sys.argv:
+        sys.exit(1)
+except Exception as e:
+    print(f"❌ Unexpected error during Pygame init: {e}")
+    if '--test-mode' not in sys.argv:
+        sys.exit(1)
 
 # Safe windowed display settings to prevent system crashes
 WINDOW_WIDTH = 1200
