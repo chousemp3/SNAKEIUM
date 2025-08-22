@@ -2,7 +2,7 @@
 
 A modern retro Snake game with stunning 8-bit visuals, rainbow effects, and an epic GHOSTKITTY soundtrack. Experience the classic game reimagined with ultra-smooth 60 FPS gameplay, multiple speed settings, and authentic retro aesthetics.
 
-[![Tests](https://github.com/chousemp3/SNAKEIUM/actions/workflows/simple-ci.yml/badge.svg)](https://github.com/chousemp3/SNAKEIUM/actions/workflows/simple-ci.yml)
+[![Tests](https://github.com/chousemp3/SNAKEIUM/actions/workflows/minimal-ci.yml/badge.svg)](https://github.com/chousemp3/SNAKEIUM/actions/workflows/minimal-ci.yml)
 ![Python Version](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 [![Version](https://img.shields.io/badge/Version-1.0.0-red.svg)](https://github.com/chousemp3/SNAKEIUM/releases)
