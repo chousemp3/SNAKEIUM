@@ -2,12 +2,12 @@
 
 A modern retro Snake game with stunning 8-bit visuals, rainbow effects, and an epic GHOSTKITTY soundtrack. Experience the classic game reimagined with ultra-smooth 60 FPS gameplay, multiple speed settings, and authentic retro aesthetics.
 
-![SNAKEIUM Banner](https://img.shields.io/badge/SNAKEIUM-GHOSTKITTY%20Edition-brightgreen?style=for-the-badge&logo=python)
-![Python Version](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python)
+[![Tests](https://github.com/chousemp3/SNAKEIUM/actions/workflows/simple-ci.yml/badge.svg)](https://github.com/chousemp3/SNAKEIUM/actions/workflows/simple-ci.yml)
+![Python Version](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-[![Version](https://img.shields.io/badge/Version-1.0.0-red.svg)](https://github.com/yourusername/snakeium/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.0-red.svg)](https://github.com/chousemp3/SNAKEIUM/releases)
 
-A high-performance, modern Snake game featuring 120Hz ultra-smooth gameplay, 8-bit pixel art graphics, dynamic music integration, and mind-bending geometric visual effects!
+A high-performance, modern Snake game featuring 60 FPS ultra-smooth gameplay, 8-bit pixel art graphics, dynamic music integration, and mind-bending geometric visual effects!
 
 ![SNAKEIUM Demo](assets/demo.gif)
 
