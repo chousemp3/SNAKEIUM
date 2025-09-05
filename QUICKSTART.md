@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-## 🚀 Instant Play (No Installation)
+## Instant Play (No Installation)
 
 ```bash
 # 1. Clone the repository
@@ -16,7 +16,7 @@ pip install pygame numpy mutagen
 python main.py
 ```
 
-## 🎮 Game Controls
+## Game Controls
 
 - **Arrow Keys** or **WASD**: Move snake
 - **Space**: Pause/Resume
@@ -25,14 +25,14 @@ python main.py
 - **R**: Restart game
 - **F11**: Toggle fullscreen
 
-## 🎯 Game Modes
+## Game Modes
 
 - **Classic**: Traditional Snake gameplay
 - **Time Attack**: Score as much as possible within time limit
 - **Zen Mode**: Relaxed gameplay, no death
 - **Challenge**: Progressive difficulty with power-ups
 
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ```bash
 # Run original version
@@ -51,7 +51,7 @@ python main.py --config my-config.json
 python main.py --debug
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 SNAKEIUM/
@@ -66,7 +66,7 @@ SNAKEIUM/
 └── tests/               # Test suite
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **No Sound?**
 - Check if `mutagen` is installed: `pip install mutagen`
@@ -80,10 +80,10 @@ SNAKEIUM/
 - Make sure you're in the virtual environment: `source venv/bin/activate`
 - Verify all dependencies: `pip install -r requirements.txt`
 
-## 🎵 Adding Custom Music
+## Adding Custom Music
 
 1. Create a `music/` directory
 2. Add MP3, OGG, WAV, or FLAC files
 3. Game will automatically detect and play them
 
-Enjoy SNAKEIUM! 🐍✨
+Enjoy SNAKEIUM!

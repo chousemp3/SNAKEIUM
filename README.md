@@ -211,7 +211,7 @@ black src/ tests/
 mypy src/
 ```
 
-### 🐛 **Testing**
+### **Testing**
 ```bash
 # Run all tests
 python -m pytest tests/ -v

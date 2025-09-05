@@ -1,6 +1,6 @@
 # SNAKEIUM 2.0 Installation Guide
 
-## 🚀 Quick Installation
+## Quick Installation
 
 ### Method 1: Direct Run (Recommended)
 ```bash
@@ -45,7 +45,7 @@ Download the pre-built executable for your platform:
 - 2 GB RAM
 - 200 MB disk space
 
-## 🔧 Development Setup
+## Development Setup
 
 ```bash
 # Clone and install development dependencies
@@ -60,7 +60,7 @@ pytest tests/
 black src/ tests/
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -73,7 +73,7 @@ black src/ tests/
 **Issue**: No sound/music
 **Solution**: Check audio settings and install `mutagen` for music support
 
-## 🎮 First Run
+## First Run
 
 1. Run `python main.py`
 2. Use arrow keys or WASD to move
