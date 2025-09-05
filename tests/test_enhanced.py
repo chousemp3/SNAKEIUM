@@ -25,10 +25,10 @@ def test_imports():
         from snakeium.ui_manager import UIManager
         from snakeium.game_engine import Game
         print("✅ All enhanced modules imported successfully")
-        return True
+        assert True  # Test passed
     except ImportError as e:
         print(f"❌ Import error: {e}")
-        return False
+        pytest.fail(f"Import error: {e}")
 
 def test_config_manager():
     """Test configuration manager functionality."""
@@ -48,10 +48,10 @@ def test_config_manager():
         assert 1000 in scores
         
         print("✅ ConfigManager tests passed")
-        return True
+        assert True  # Test passed
     except Exception as e:
         print(f"❌ ConfigManager test failed: {e}")
-        return False
+        pytest.fail(f"ConfigManager test failed: {e}")
 
 def test_audio_manager():
     """Test audio manager initialization."""
@@ -67,10 +67,10 @@ def test_audio_manager():
         assert audio.sfx_manager is not None
         
         print("✅ AudioManager tests passed")
-        return True
+        assert True  # Test passed
     except Exception as e:
         print(f"❌ AudioManager test failed: {e}")
-        return False
+        pytest.fail(f"AudioManager test failed: {e}")
 
 def test_game_engine():
     """Test game engine initialization."""
@@ -97,10 +97,10 @@ def test_game_engine():
         assert food.position not in snake.body
         
         print("✅ Game engine tests passed")
-        return True
+        assert True  # Test passed
     except Exception as e:
         print(f"❌ Game engine test failed: {e}")
-        return False
+        pytest.fail(f"Game engine test failed: {e}")
 
 def test_legacy_compatibility():
     """Test that legacy version still works."""
@@ -112,49 +112,12 @@ def test_legacy_compatibility():
             
             # This will fail if legacy files aren't copied yet, that's OK
             print("⚠️  Legacy compatibility test skipped (files not found)")
-            return True
+            assert True
         else:
             print("⚠️  Legacy directory not found, skipping test")
-            return True
+            assert True
     except Exception as e:
         print(f"⚠️  Legacy test failed (expected): {e}")
-        return True
+        assert True  # This is acceptable
 
-def main():
-    """Run all tests."""
-    print("🧪 Running SNAKEIUM 2.0 Test Suite")
-    print("=" * 50)
-    
-    tests = [
-        ("Import Tests", test_imports),
-        ("Config Manager", test_config_manager),
-        ("Audio Manager", test_audio_manager),
-        ("Game Engine", test_game_engine),
-        ("Legacy Compatibility", test_legacy_compatibility),
-    ]
-    
-    passed = 0
-    total = len(tests)
-    
-    for test_name, test_func in tests:
-        print(f"\n🔍 Running {test_name}...")
-        try:
-            if test_func():
-                passed += 1
-            else:
-                print(f"❌ {test_name} failed")
-        except Exception as e:
-            print(f"💥 {test_name} crashed: {e}")
-    
-    print("\n" + "=" * 50)
-    print(f"📊 Test Results: {passed}/{total} tests passed")
-    
-    if passed == total:
-        print("🎉 All tests passed!")
-        return 0
-    else:
-        print("⚠️  Some tests failed")
-        return 1
-
-if __name__ == "__main__":
-    sys.exit(main())
+# Tests can be run with: python -m pytest tests/
