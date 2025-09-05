@@ -1,0 +1,22 @@
+{
+  "name": "GHOSTKITTY",
+  "description": "Original neon rainbow aesthetic with GHOSTKITTY vibes",
+  "colors": {
+    "background": [0, 0, 0],
+    "snake": [0, 255, 0],
+    "food": [255, 0, 0],
+    "ui_text": [255, 255, 255],
+    "neon_blue": [0, 191, 255],
+    "neon_pink": [255, 20, 147],
+    "neon_green": [50, 205, 50],
+    "neon_yellow": [255, 255, 0],
+    "neon_purple": [138, 43, 226],
+    "neon_orange": [255, 140, 0]
+  },
+  "effects": {
+    "rainbow_background": true,
+    "scan_lines": true,
+    "particle_trails": true,
+    "glow_effects": true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Neon Cyberpunk",
+  "description": "Bright cyberpunk colors with electric blue accents",
+  "colors": {
+    "background": [10, 10, 30],
+    "snake": [0, 255, 255],
+    "food": [255, 0, 255],
+    "ui_text": [255, 255, 255],
+    "neon_blue": [0, 255, 255],
+    "neon_pink": [255, 0, 255],
+    "neon_green": [0, 255, 0],
+    "neon_yellow": [255, 255, 0],
+    "neon_purple": [128, 0, 255],
+    "neon_orange": [255, 128, 0]
+  },
+  "effects": {
+    "rainbow_background": false,
+    "scan_lines": true,
+    "particle_trails": true,
+    "glow_effects": true
+  }
+}

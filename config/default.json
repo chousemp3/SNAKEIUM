@@ -1,0 +1,58 @@
+{
+  "display": {
+    "width": 1400,
+    "height": 900,
+    "fullscreen": false,
+    "vsync": true,
+    "target_fps": 60,
+    "show_fps": false
+  },
+  "gameplay": {
+    "default_speed": 5,
+    "wrap_around": true,
+    "power_ups_enabled": true,
+    "particle_effects": true,
+    "visual_effects": true,
+    "max_particles": 300
+  },
+  "audio": {
+    "music_enabled": true,
+    "sound_effects_enabled": true,
+    "music_volume": 0.7,
+    "sfx_volume": 0.8,
+    "music_folder": "",
+    "shuffle_music": true
+  },
+  "controls": {
+    "up_keys": [273, 119],
+    "down_keys": [274, 115],
+    "left_keys": [276, 97],
+    "right_keys": [275, 100],
+    "pause_key": 32,
+    "restart_key": 114,
+    "menu_key": 27,
+    "skip_music_key": 109
+  },
+  "theme": {
+    "current_theme": "ghostkitty",
+    "custom_colors": {},
+    "rainbow_background": true,
+    "scan_lines": true
+  },
+  "developer": {
+    "debug_mode": false,
+    "show_collision_boxes": false,
+    "performance_monitor": false,
+    "log_level": "INFO"
+  },
+  "high_scores": {},
+  "statistics": {
+    "total_games": 0,
+    "total_playtime": 0,
+    "highest_score": 0,
+    "longest_snake": 0,
+    "favorite_speed": 4,
+    "power_ups_collected": 0,
+    "achievements": []
+  }
+}

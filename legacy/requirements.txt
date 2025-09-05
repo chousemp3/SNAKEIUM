@@ -1,0 +1,17 @@
+# 🐍 SNAKEIUM - GHOSTKITTY Edition 🎵
+# Core dependencies for the modern retro Snake game
+
+# Essential
+pygame>=2.1.0
+
+# Optional (for enhanced features)
+mutagen>=1.45.0  # Music metadata support
+
+# Optional dependencies for enhanced features
+mutagen>=1.45.1        # Music metadata support
+numpy>=1.21.0          # Advanced mathematical operations
+
+# Development dependencies (uncomment for development)
+# pytest>=7.0.0        # Testing framework
+# black>=22.0.0        # Code formatting
+# flake8>=4.0.0        # Code linting
