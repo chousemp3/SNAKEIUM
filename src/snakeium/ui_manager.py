@@ -467,7 +467,7 @@ class MenuManager:
                 color = (100, 100, 100)
             
             # Selection indicator
-            prefix = "▶ " if i == self.selected_index else "  "
+            prefix = "> " if i == self.selected_index else "  "
             
             text = self.medium_font.render(f"{prefix}{item.text}", True, color)
             text_rect = text.get_rect(center=(self.screen.get_width() // 2, y_start + i * 50))
