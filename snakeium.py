@@ -916,7 +916,7 @@ class Food:
 
 
 class StartMenu:
-    """Retro 8-bit start menu with speed selection."""
+    """Clean start menu with speed selection."""
 
     SPEED_OPTIONS = [
         ("CHILL MODE", 2),
@@ -931,79 +931,120 @@ class StartMenu:
         self.selected_option = 1  # default CLASSIC
         self.options = self.SPEED_OPTIONS
         self.title_pulse = 0.0
-        self.bg_pattern_offset = 0.0
-        self.title_font = pygame.font.Font(None, max(72, WINDOW_WIDTH // 15))
-        self.menu_font = pygame.font.Font(None, max(48, WINDOW_WIDTH // 25))
-        self.subtitle_font = pygame.font.Font(None, max(32, WINDOW_WIDTH // 40))
+        self.bg_hue_offset = 0.0
+        self.stars = [(random.randint(0, WINDOW_WIDTH), random.randint(0, WINDOW_HEIGHT),
+                       random.uniform(0.5, 2.0), random.randint(1, 3)) for _ in range(80)]
+        self.title_font = pygame.font.Font(None, max(80, WINDOW_WIDTH // 14))
+        self.menu_font = pygame.font.Font(None, max(44, WINDOW_WIDTH // 28))
+        self.subtitle_font = pygame.font.Font(None, max(28, WINDOW_WIDTH // 45))
+        self.hint_font = pygame.font.Font(None, max(24, WINDOW_WIDTH // 50))
 
-    def draw_8bit_background(self):
-        self.bg_pattern_offset += 0.5
+    def draw_background(self):
+        """Draw a smooth dark gradient background with subtle animated stars."""
         sw = self.screen.get_width()
         sh = self.screen.get_height()
-        block_size = PIXEL_SCALE * 6
-        cols = (sw + block_size - 1) // block_size
-        rows = (sh + block_size - 1) // block_size
-        for bx in range(cols):
-            for by in range(rows):
-                px = bx * block_size
-                py = by * block_size
-                hue = ((px + py + self.bg_pattern_offset) * 0.1) % 360
-                rgb = colorsys.hsv_to_rgb(hue / 360, 0.6, 0.4)
-                color = tuple(int(c * 255) for c in rgb)
-                pygame.draw.rect(self.screen, color, (px, py, block_size, block_size))
-        for y in range(0, sh, 4):
-            pygame.draw.line(self.screen, BLACK, (0, y), (sw, y), 1)
+        self.bg_hue_offset += 0.15
+
+        # Smooth vertical gradient (dark top to darker bottom)
+        band_height = 8
+        for y in range(0, sh, band_height):
+            t = y / sh
+            r = int(8 + 12 * (1 - t))
+            g = int(10 + 18 * (1 - t))
+            b = int(30 + 25 * (1 - t))
+            # Add subtle hue shift
+            hue_shift = math.sin(self.bg_hue_offset * 0.02 + t * 2) * 8
+            r = max(0, min(255, r + int(hue_shift)))
+            b = max(0, min(255, b + int(hue_shift * 0.5)))
+            pygame.draw.rect(self.screen, (r, g, b), (0, y, sw, band_height))
+
+        # Animated stars
+        for i, (sx, sy, speed, size) in enumerate(self.stars):
+            brightness = int(120 + 80 * math.sin(time.time() * speed + i))
+            brightness = max(60, min(220, brightness))
+            color = (brightness, brightness, brightness + 30)
+            pygame.draw.circle(self.screen, color, (int(sx), int(sy)), size)
+
+        # Subtle scan lines (very faint, every 3rd pixel)
+        overlay = pygame.Surface((sw, sh), pygame.SRCALPHA)
+        for y in range(0, sh, 3):
+            pygame.draw.line(overlay, (0, 0, 0, 15), (0, y), (sw, y), 1)
+        self.screen.blit(overlay, (0, 0))
 
     def draw_title(self):
-        self.title_pulse += 0.1
+        """Draw the SNAKEIUM title with clean styling."""
+        self.title_pulse += 0.06
         title = "SNAKEIUM"
-        cw = 70
+        cw = max(65, WINDOW_WIDTH // 18)
         start_x = WINDOW_WIDTH // 2 - (len(title) * cw) // 2
+
         for i, ch in enumerate(title):
-            hue = (time.time() * 50 + i * 45) % 360
-            rgb = colorsys.hsv_to_rgb(hue / 360, 1, 1)
+            hue = (time.time() * 30 + i * 45) % 360
+            rgb = colorsys.hsv_to_rgb(hue / 360, 0.85, 1.0)
             color = tuple(int(c * 255) for c in rgb)
-            cs = self.title_font.render(ch, True, color)
+            cy = WINDOW_HEIGHT // 5 + int(4 * math.sin(self.title_pulse + i * 0.6))
             cx = start_x + i * cw
-            cy = WINDOW_HEIGHT // 4 + int(10 * math.sin(self.title_pulse + i * 0.5))
-            glow = self.title_font.render(ch, True, WHITE)
-            for ox, oy in [(2, 2), (-2, -2), (2, -2), (-2, 2)]:
+
+            # Dark shadow for depth
+            shadow = self.title_font.render(ch, True, (0, 0, 0))
+            self.screen.blit(shadow, (cx + 3, cy + 3))
+
+            # Subtle glow
+            glow_rgb = tuple(min(255, c + 60) for c in color)
+            glow = self.title_font.render(ch, True, glow_rgb)
+            glow.set_alpha(40)
+            for ox, oy in [(1, 1), (-1, -1), (1, -1), (-1, 1)]:
                 self.screen.blit(glow, (cx + ox, cy + oy))
+
+            # Main letter
+            cs = self.title_font.render(ch, True, color)
             self.screen.blit(cs, (cx, cy))
 
+        # Subtitle
         sub = "GHOSTKITTY EDITION"
         sub_surf = self.subtitle_font.render(sub, True, NEON_PINK)
-        sub_rect = sub_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 4 + 100))
-        for ox, oy in [(1, 1), (-1, -1), (1, -1), (-1, 1)]:
-            outline = self.subtitle_font.render(sub, True, BLACK)
-            self.screen.blit(outline, (sub_rect.x + ox, sub_rect.y + oy))
+        sub_rect = sub_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 5 + 90))
+        shadow = self.subtitle_font.render(sub, True, (0, 0, 0))
+        self.screen.blit(shadow, (sub_rect.x + 1, sub_rect.y + 1))
         self.screen.blit(sub_surf, sub_rect)
 
     def draw_menu(self):
-        start_y = WINDOW_HEIGHT // 2
-        for i, (name, _) in enumerate(self.options):
-            if i == self.selected_option:
-                color = NEON_GREEN
-                prefix = "> "
-                rect = pygame.Rect(WINDOW_WIDTH // 4, start_y + i * 60 - 5, WINDOW_WIDTH // 2, 50)
-                pygame.draw.rect(self.screen, (0, 60, 0), rect)
-                pygame.draw.rect(self.screen, NEON_GREEN, rect, 3)
-            else:
-                color = WHITE
-                prefix = "  "
-            text = prefix + name
-            surf = self.menu_font.render(text, True, color)
-            r = surf.get_rect(center=(WINDOW_WIDTH // 2, start_y + i * 60))
-            shadow = self.menu_font.render(text, True, BLACK)
-            self.screen.blit(shadow, (r.x + 2, r.y + 2))
-            self.screen.blit(surf, r)
+        """Draw the speed selection menu."""
+        menu_top = WINDOW_HEIGHT // 2 - 20
+        item_height = 55
+        item_width = WINDOW_WIDTH // 3
+        menu_x = WINDOW_WIDTH // 2 - item_width // 2
 
+        for i, (name, _) in enumerate(self.options):
+            y = menu_top + i * item_height
+            rect = pygame.Rect(menu_x, y, item_width, item_height - 6)
+
+            if i == self.selected_option:
+                # Selected item: filled with border
+                pygame.draw.rect(self.screen, (0, 40, 0), rect, border_radius=6)
+                pygame.draw.rect(self.screen, NEON_GREEN, rect, 2, border_radius=6)
+                color = NEON_GREEN
+                text = "> " + name
+            else:
+                # Unselected: subtle background
+                pygame.draw.rect(self.screen, (15, 15, 30), rect, border_radius=6)
+                pygame.draw.rect(self.screen, (40, 40, 60), rect, 1, border_radius=6)
+                color = (180, 180, 190)
+                text = name
+
+            surf = self.menu_font.render(text, True, color)
+            text_rect = surf.get_rect(center=rect.center)
+            shadow = self.menu_font.render(text, True, (0, 0, 0))
+            self.screen.blit(shadow, (text_rect.x + 1, text_rect.y + 1))
+            self.screen.blit(surf, text_rect)
+
+        # Controls hint
         inst = "ARROW KEYS TO SELECT  |  ENTER TO START  |  ESC TO QUIT"
-        inst_surf = self.subtitle_font.render(inst, True, NEON_BLUE)
-        self.screen.blit(inst_surf, inst_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT - 100)))
+        inst_surf = self.hint_font.render(inst, True, (80, 160, 200))
+        self.screen.blit(inst_surf, inst_surf.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT - 60)))
 
     def draw(self):
-        self.draw_8bit_background()
+        self.draw_background()
         self.draw_title()
         self.draw_menu()
 
@@ -1180,21 +1221,18 @@ class Game:
         self.bg_hue = (self.bg_hue + 0.3) % 360
         sw = self.screen.get_width()
         sh = self.screen.get_height()
-        base_rgb = colorsys.hsv_to_rgb(self.bg_hue / 360, 0.3, 0.2)
+        base_rgb = colorsys.hsv_to_rgb(self.bg_hue / 360, 0.25, 0.12)
         self.screen.fill(tuple(int(c * 255) for c in base_rgb))
 
         if PIXELATED_BACKGROUND:
-            ps = PIXEL_SCALE
-            cols = (sw + ps - 1) // ps
-            rows = (sh + ps - 1) // ps
-            for bx in range(cols):
-                for by in range(rows):
-                    hue = (self.bg_hue + bx * 5 + by * 3) % 360
-                    rgb = colorsys.hsv_to_rgb(hue / 360, 0.6, 0.3)
-                    color = tuple(int(c * 255) for c in rgb)
-                    pygame.draw.rect(self.screen, color, (bx * ps, by * ps, ps, ps))
-            for y in range(0, sh, 6):
-                pygame.draw.line(self.screen, BLACK, (0, y), (sw, y), 2)
+            # Subtle gradient bands instead of rainbow blocks
+            band_height = 12
+            for y in range(0, sh, band_height):
+                t = y / sh
+                hue = (self.bg_hue + t * 40) % 360
+                rgb = colorsys.hsv_to_rgb(hue / 360, 0.2, 0.10 + 0.06 * (1 - t))
+                color = tuple(int(c * 255) for c in rgb)
+                pygame.draw.rect(self.screen, color, (0, y, sw, band_height))
 
     def draw_grid_overlay(self):
         for x in range(0, WINDOW_WIDTH, GRID_SIZE):
