@@ -135,7 +135,7 @@ class Config:
     # Performance
     ENABLE_VSYNC = True
     ENABLE_PARTICLES = True
-    ENABLE_GEOMETRIC_EFFECTS = True
+    ENABLE_GEOMETRIC_EFFECTS = False
 
     # Persistence
     HIGH_SCORE_FILE = str(Path.home() / ".snakeium" / "high_scores.json")
@@ -607,17 +607,12 @@ class MusicManager:
                 pass
 
         if not self.playlist:
-            search_paths = [
-                os.path.join(os.path.expanduser("~"), "Music"),
-                os.path.join(os.path.expanduser("~"), "Desktop"),
-                os.path.join(os.getcwd(), "music"),
-            ]
-            for path in search_paths:
-                if os.path.exists(path):
-                    files = glob.glob(os.path.join(path, "**", "*.mp3"), recursive=True)
-                    if files:
-                        self.playlist = files[:50]
-                        break
+            # Only look in the local music/ folder, not system-wide
+            local_music = os.path.join(os.getcwd(), "music")
+            if os.path.exists(local_music):
+                files = glob.glob(os.path.join(local_music, "**", "*.mp3"), recursive=True)
+                if files:
+                    self.playlist = files[:50]
 
     def play_random_song(self) -> Optional[str]:
         """Play a song from the playlist."""
@@ -677,7 +672,9 @@ class Snake:
 
         # Smooth movement
         self.move_timer = 0
-        self.move_interval = max(1, 60 // self.speed)
+        self.move_interval = max(1, 60 // max(self.speed, 1))
+        # Start with a move ready so snake responds immediately
+        self.move_timer = self.move_interval
         self.smooth_positions: list = []
         self.target_positions: list = []
         self.movement_progress = 0.0
@@ -1136,16 +1133,20 @@ class Game:
         self._death_timer = 0
         self._screen_shake = 0.0
 
-        self.spirals = [
-            SpiralEffect(
-                (WINDOW_WIDTH // SPIRAL_COUNT) * i + (WINDOW_WIDTH // SPIRAL_COUNT) // 2,
-                WINDOW_HEIGHT // 2 + random.randint(-200, 200),
-                i,
-            )
-            for i in range(SPIRAL_COUNT)
-        ]
-        self.pyramids = [PyramidEffect(i) for i in range(PYRAMID_COUNT)]
-        self.triangles = [TriangleRipper(i) for i in range(TRIANGLE_COUNT)]
+        self.spirals = []
+        self.pyramids = []
+        self.triangles = []
+        if Config.ENABLE_GEOMETRIC_EFFECTS:
+            self.spirals = [
+                SpiralEffect(
+                    (WINDOW_WIDTH // SPIRAL_COUNT) * i + (WINDOW_WIDTH // SPIRAL_COUNT) // 2,
+                    WINDOW_HEIGHT // 2 + random.randint(-200, 200),
+                    i,
+                )
+                for i in range(SPIRAL_COUNT)
+            ]
+            self.pyramids = [PyramidEffect(i) for i in range(PYRAMID_COUNT)]
+            self.triangles = [TriangleRipper(i) for i in range(TRIANGLE_COUNT)]
 
     def reset_game(self):
         self.game_state = "menu"
@@ -1417,13 +1418,14 @@ class Game:
             shake_y = int(random.uniform(-self._screen_shake, self._screen_shake))
             self._screen_shake *= 0.85
 
-        try:
-            for pyramid in self.pyramids[:3]:
-                pyramid.draw(self.screen)
-            for triangle in self.triangles[:3]:
-                triangle.draw(self.screen)
-        except Exception:
-            pass
+        if Config.ENABLE_GEOMETRIC_EFFECTS:
+            try:
+                for pyramid in self.pyramids[:3]:
+                    pyramid.draw(self.screen)
+                for triangle in self.triangles[:3]:
+                    triangle.draw(self.screen)
+            except Exception:
+                pass
 
         if self.game_state == "menu":
             self.start_menu.draw()
