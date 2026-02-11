@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-## [2.1.0] - 2025-01-XX
+## [2.1.0] - 2026-02-10
 
 ### Added
 - High score system with JSON persistence (`~/.snakeium/high_scores.json`)
@@ -28,6 +28,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Comments referencing "120Hz" corrected to "60 FPS"
 - Double update of visual effects each frame causing performance waste
 - Broken emoji characters in print output
+- Menu background replaced: removed rainbow block grid in favor of smooth dark gradient with animated stars
+- Scan line overlay reduced from heavy alpha to subtle alpha 15
+- In-game background cleaned up: replaced pixelated rainbow blocks with smooth gradient bands
+- Geometric visual effects (flying triangles, spirals) disabled to prevent gameplay obstruction
+- Music scanner restricted to local `music/` folder only (no longer scans system directories)
+- Snake movement pre-loaded on game start for immediate input response
 
 ### Changed
 - Full rewrite of standalone `snakeium.py` (1852 lines reduced to ~1100 clean lines)

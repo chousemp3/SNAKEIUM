@@ -51,7 +51,7 @@ python main.py --legacy   # Legacy standalone version
 - **Death animation**: Screen shake effect on game over
 
 ### Audio
-- **Auto-detection**: Scans common folders for MP3, OGG, and WAV files
+- **Music support**: Plays MP3, OGG, and WAV files from the local `music/` folder
 - **Metadata display**: Shows artist, title, and album via mutagen
 - **Playback controls**: Shuffle, skip (M key), volume adjustment
 - **Procedural SFX**: Dynamically generated sound effects for game events
