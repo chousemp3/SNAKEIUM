@@ -1,8 +1,10 @@
 # Contributing to SNAKEIUM
 
-Thank you for your interest in contributing to SNAKEIUM! This document provides guidelines and information for contributors.
+Thank you for your interest in contributing to SNAKEIUM. This document covers guidelines for submitting issues, feature requests, and pull requests.
 
-## 📋 Table of Contents
+---
+
+## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
@@ -11,278 +13,185 @@ Thank you for your interest in contributing to SNAKEIUM! This document provides 
 - [Submitting Changes](#submitting-changes)
 - [Coding Standards](#coding-standards)
 - [Testing](#testing)
-- [Documentation](#documentation)
 
-## 🤝 Code of Conduct
+---
 
-Please be respectful and constructive in all interactions. We want SNAKEIUM to be welcoming to contributors from all backgrounds.
+## Code of Conduct
 
-## 🚀 Getting Started
+Be respectful and constructive in all interactions. SNAKEIUM is open to contributors from all backgrounds and experience levels.
+
+## Getting Started
 
 ### Prerequisites
-- Python 3.7+
+
+- Python 3.8+
 - Git
-- Basic knowledge of pygame
-- Familiarity with game development concepts
+- Basic knowledge of Pygame
 
 ### Development Setup
 
-1. **Fork the repository**
+1. **Fork and clone the repository**
+
    ```bash
-   # Click "Fork" on GitHub, then clone your fork
    git clone https://github.com/YOUR_USERNAME/snakeium.git
    cd snakeium
    ```
 
-2. **Set up development environment**
+2. **Create a virtual environment**
+
    ```bash
-   # Create virtual environment
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   
-   # Install dependencies
-   pip install -r requirements.txt
-   
-   # Install development dependencies
-   pip install pytest black flake8
+   source venv/bin/activate  # Windows: venv\Scripts\activate
    ```
 
-3. **Test the setup**
+3. **Install dependencies**
+
    ```bash
-   python snakeium.py --debug
+   pip install -r requirements.txt
+   pip install -r requirements-dev.txt
    ```
 
-## 🔧 Making Changes
+4. **Verify the setup**
+
+   ```bash
+   python snakeium.py --test-mode
+   pytest tests/ -v
+   ```
+
+## Making Changes
 
 ### Branch Naming
+
+Use descriptive prefixes:
+
 - `feature/description` - New features
 - `bugfix/description` - Bug fixes
 - `docs/description` - Documentation updates
-- `refactor/description` - Code refactoring
+- `refactor/description` - Code restructuring
 
-### Development Workflow
+### Workflow
 
-1. **Create a branch**
+1. Create a branch from `main`:
+
    ```bash
-   git checkout -b feature/awesome-new-feature
+   git checkout -b feature/your-feature
    ```
 
-2. **Make your changes**
-   - Keep commits small and focused
-   - Write clear commit messages
-   - Test your changes thoroughly
+2. Make changes in small, focused commits.
 
-3. **Run quality checks**
+3. Run quality checks before pushing:
+
    ```bash
-   # Format code
-   black snakeium.py
-   
-   # Check for issues
-   flake8 snakeium.py
-   
-   # Run tests
-   pytest tests/
+   black src/ tests/ snakeium.py
+   flake8 src/ snakeium.py
+   pytest tests/ -v
    ```
 
-## 📝 Submitting Changes
+4. Push and open a pull request.
 
-### Pull Request Process
+## Submitting Changes
 
-1. **Update documentation** if needed
-2. **Add tests** for new features
-3. **Update CHANGELOG.md** with your changes
-4. **Create pull request** with:
-   - Clear title and description
-   - Reference any related issues
-   - Include screenshots/GIFs for visual changes
+### Pull Request Guidelines
 
-### Pull Request Template
-```markdown
-## Description
-Brief description of changes
+- Write a clear title and description.
+- Reference any related issues.
+- Include screenshots or GIFs for visual changes.
+- Update `CHANGELOG.md` with your changes.
+- Add or update tests as needed.
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change
-- [ ] Documentation update
+### Pull Request Checklist
 
-## Testing
-- [ ] Tested locally
-- [ ] Added unit tests
-- [ ] Updated documentation
-
-## Screenshots
-If applicable, add screenshots or GIFs
+```
+- [ ] Code follows project coding standards
+- [ ] Tests pass locally
+- [ ] New tests added for new functionality
+- [ ] Documentation updated if needed
+- [ ] CHANGELOG.md updated
 ```
 
-## 🎨 Coding Standards
+## Coding Standards
 
 ### Python Style
-- Follow PEP 8
-- Use type hints where possible
-- Write docstrings for functions and classes
-- Keep line length under 88 characters
+
+- Follow PEP 8.
+- Use type hints where practical.
+- Write docstrings for all public functions and classes (Google style).
+- Maximum line length: 88 characters (Black default).
+- No emoji characters in code or output strings.
 
 ### Game Development Guidelines
-- Maintain 120 FPS target
-- Handle errors gracefully
-- Optimize for performance
-- Keep visual effects configurable
 
-### Example Code Style
+- Target 60 FPS.
+- Handle all errors gracefully with fallbacks.
+- Keep visual effects configurable.
+- Test on multiple platforms when possible.
+
+### Example
+
 ```python
 def create_sprite(size: int, color: Tuple[int, int, int]) -> pygame.Surface:
-    """Create a sprite surface with specified size and color.
-    
+    """Create a square sprite surface.
+
     Args:
-        size: Size in pixels for square sprite
-        color: RGB color tuple
-        
+        size: Width and height in pixels.
+        color: RGB color tuple.
+
     Returns:
-        pygame.Surface: The created sprite surface
+        The created sprite surface.
     """
     surface = pygame.Surface((size, size), pygame.SRCALPHA)
     pygame.draw.rect(surface, color, (0, 0, size, size))
     return surface
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Running Tests
+
 ```bash
-# Run all tests
-pytest
+# All tests
+pytest tests/ -v
 
-# Run with coverage
-pytest --cov=snakeium
+# With coverage
+pytest --cov=snakeium tests/
 
-# Run specific test file
-pytest tests/test_music.py
+# Specific test file
+pytest tests/test_enhanced.py -v
 ```
 
 ### Writing Tests
-- Test new features and bug fixes
-- Use pytest fixtures for setup
-- Mock external dependencies
-- Test edge cases and error conditions
 
-### Test Structure
-```python
-import pytest
-from snakeium import MusicManager
+- Use `pytest` fixtures for setup and teardown.
+- Mock external dependencies (Pygame, filesystem).
+- Cover edge cases and error conditions.
+- Keep tests focused on one behavior each.
 
-def test_music_manager_initialization():
-    """Test MusicManager initializes correctly."""
-    manager = MusicManager("test_folder")
-    assert manager.playlist == []
-    assert manager.current_song is None
-```
+## Bug Reports
 
-## 📚 Documentation
+Use the [GitHub Issues](https://github.com/chousemp3/SNAKEIUM/issues) page with:
 
-### Docstring Format
-Use Google-style docstrings:
+- Clear description of the issue
+- Steps to reproduce
+- Expected vs. actual behavior
+- System info: OS, Python version, Pygame version
 
-```python
-def example_function(param1: str, param2: int = 0) -> bool:
-    """One line summary.
-    
-    Longer description if needed.
-    
-    Args:
-        param1: Description of param1
-        param2: Description of param2 with default
-        
-    Returns:
-        Description of return value
-        
-    Raises:
-        ValueError: When something goes wrong
-    """
-```
+## Feature Requests
 
-### README Updates
-- Keep README.md current with new features
-- Update command-line options
-- Add examples for new functionality
+Before opening a request:
 
-## 🎯 Areas for Contribution
+1. Check existing issues to avoid duplicates.
+2. Describe the use case clearly.
+3. Consider performance and cross-platform impact.
+4. Provide implementation ideas if possible.
 
-### High Priority
-- [ ] Performance optimizations
-- [ ] Cross-platform testing
-- [ ] Additional music format support
-- [ ] Mobile/touch controls
-- [ ] Accessibility improvements
+## Areas for Contribution
 
-### Medium Priority
-- [ ] High score system
-- [ ] Additional visual effects
-- [ ] Custom themes
-- [ ] Multiplayer support
-- [ ] Level editor
+**High priority**: Performance optimization, cross-platform testing, accessibility improvements.
 
-### Low Priority
-- [ ] Additional power-ups
-- [ ] Achievement system
-- [ ] Replay system
-- [ ] Statistics tracking
+**Medium priority**: Additional themes, multiplayer support, level editor, mobile controls.
 
-## 💡 Feature Requests
+**Low priority**: Additional power-ups, replay system, statistics dashboard.
 
-When suggesting new features:
+---
 
-1. **Check existing issues** first
-2. **Describe the use case** clearly
-3. **Consider performance impact**
-4. **Provide implementation ideas** if possible
-5. **Include mockups/examples** for UI changes
-
-## 🐛 Bug Reports
-
-When reporting bugs:
-
-1. **Use the issue template**
-2. **Provide reproduction steps**
-3. **Include system information**
-4. **Add error messages/logs**
-5. **Attach screenshots if relevant**
-
-### Bug Report Template
-```markdown
-**Describe the bug**
-Clear description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. See error
-
-**Expected behavior**
-What you expected to happen.
-
-**System Information:**
- - OS: [e.g. Windows 10]
- - Python version: [e.g. 3.9.7]
- - Pygame version: [e.g. 2.1.0]
-
-**Additional context**
-Any other context about the problem.
-```
-
-## 📞 Getting Help
-
-- **GitHub Issues**: For bugs and feature requests
-- **GitHub Discussions**: For questions and general discussion
-- **Code Review**: Tag maintainers for review help
-
-## 🎉 Recognition
-
-Contributors will be:
-- Listed in the README.md
-- Mentioned in release notes
-- Given credit in commit messages
-
-Thank you for helping make SNAKEIUM awesome! 🐍✨
+Thank you for helping improve SNAKEIUM.

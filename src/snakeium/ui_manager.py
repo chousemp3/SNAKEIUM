@@ -347,7 +347,7 @@ class MenuManager:
     def draw_main_menu(self):
         """Draw the main menu."""
         # Title
-        title_text = self.large_font.render("🐍 SNAKEIUM 2.0", True, self.colors['neon_green'])
+        title_text = self.large_font.render("SNAKEIUM 2.1", True, self.colors['neon_green'])
         title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 150))
         self.screen.blit(title_text, title_rect)
         
@@ -360,7 +360,7 @@ class MenuManager:
     
     def draw_high_scores(self):
         """Draw high scores menu."""
-        title_text = self.large_font.render("🏆 High Scores", True, self.colors['neon_yellow'])
+        title_text = self.large_font.render("High Scores", True, self.colors['neon_yellow'])
         title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 100))
         self.screen.blit(title_text, title_rect)
         
@@ -382,7 +382,7 @@ class MenuManager:
     
     def draw_audio_menu(self):
         """Draw audio settings menu."""
-        title_text = self.large_font.render("🔊 Audio Settings", True, self.colors['neon_blue'])
+        title_text = self.large_font.render("Audio Settings", True, self.colors['neon_blue'])
         title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 100))
         self.screen.blit(title_text, title_rect)
         
@@ -397,7 +397,7 @@ class MenuManager:
         # Current song info
         song_info = self.audio.get_current_song_info()
         if song_info:
-            info_text = self.small_font.render(f"♪ {song_info['title']} - {song_info['artist']}", 
+            info_text = self.small_font.render(f"{song_info['title']} - {song_info['artist']}", 
                                              True, self.colors['neon_pink'])
             self.screen.blit(info_text, (100, 450))
         
@@ -406,7 +406,7 @@ class MenuManager:
     
     def draw_graphics_menu(self):
         """Draw graphics settings menu."""
-        title_text = self.large_font.render("🎨 Graphics Settings", True, self.colors['neon_purple'])
+        title_text = self.large_font.render("Graphics Settings", True, self.colors['neon_purple'])
         title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 100))
         self.screen.blit(title_text, title_rect)
         
@@ -420,7 +420,7 @@ class MenuManager:
     
     def draw_about_menu(self):
         """Draw about menu."""
-        title_text = self.large_font.render("ℹ️ About SNAKEIUM", True, self.colors['neon_orange'])
+        title_text = self.large_font.render("About SNAKEIUM", True, self.colors['neon_orange'])
         title_rect = title_text.get_rect(center=(self.screen.get_width() // 2, 100))
         self.screen.blit(title_text, title_rect)
         
@@ -432,7 +432,7 @@ class MenuManager:
             "Version: 2.0.0",
             "License: MIT",
             "",
-            "Made with 💜 for retro gaming community!"
+            "Made for the retro gaming community."
         ]
         
         y_offset = 180
@@ -583,13 +583,13 @@ class HUD:
                     'rainbow_mode': self.colors['neon_purple']
                 }.get(effect, self.colors['ui_text'])
                 
-                effect_text = self.small_font.render(f"⚡ {effect.upper()}!", True, effect_color)
+                effect_text = self.small_font.render(f"{effect.upper()}!", True, effect_color)
                 self.screen.blit(effect_text, (10, y_offset))
                 y_offset += 25
         
         # Current song
         if current_song:
-            song_text = self.small_font.render(f"♪ {current_song}", True, self.colors['neon_pink'])
+            song_text = self.small_font.render(f"{current_song}", True, self.colors['neon_pink'])
             self.screen.blit(song_text, (10, self.screen.get_height() - 30))
         
         # FPS counter (if enabled)
@@ -641,7 +641,7 @@ class HUD:
         
         # High score notification
         if is_high_score:
-            hs_text = self.small_font.render("🏆 NEW HIGH SCORE! 🏆", True, self.colors['neon_yellow'])
+            hs_text = self.small_font.render("NEW HIGH SCORE!", True, self.colors['neon_yellow'])
             hs_rect = hs_text.get_rect(center=(self.screen.get_width() // 2, 
                                               self.screen.get_height() // 2 + 40))
             self.screen.blit(hs_text, hs_rect)

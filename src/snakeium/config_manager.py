@@ -159,12 +159,12 @@ class ConfigManager:
                 if 'statistics' in data:
                     self.statistics.update(data['statistics'])
                 
-                print(f"✅ Configuration loaded from {self.config_path}")
+                print(f"Configuration loaded from {self.config_path}")
                 return True
                 
         except Exception as e:
-            print(f"⚠️  Failed to load config: {e}")
-            print("🔧 Using default configuration")
+            print(f"Warning: Failed to load config: {e}")
+            print("Using default configuration")
         
         return False
     
@@ -192,11 +192,11 @@ class ConfigManager:
             with open(self.config_path, 'w', encoding='utf-8') as f:
                 json.dump(config_data, f, indent=2, ensure_ascii=False)
             
-            print(f"💾 Configuration saved to {self.config_path}")
+            print(f"Configuration saved to {self.config_path}")
             return True
             
         except Exception as e:
-            print(f"❌ Failed to save config: {e}")
+            print(f"Failed to save config: {e}")
             return False
     
     def reset_to_defaults(self):
@@ -207,7 +207,7 @@ class ConfigManager:
         self.controls = ControlSettings()
         self.theme = ThemeSettings()
         self.developer = DeveloperSettings()
-        print("🔄 Configuration reset to defaults")
+        print("Configuration reset to defaults")
     
     def update_high_score(self, mode: str, score: int) -> bool:
         """Update high score for a game mode."""
@@ -321,7 +321,7 @@ class ConfigManager:
             self.config_path = old_path
             return result
         except Exception as e:
-            print(f"❌ Failed to export config: {e}")
+            print(f"Failed to export config: {e}")
             return False
     
     def import_config(self, path: str) -> bool:
@@ -333,7 +333,7 @@ class ConfigManager:
             self.config_path = old_path
             return result
         except Exception as e:
-            print(f"❌ Failed to import config: {e}")
+            print(f"Failed to import config: {e}")
             return False
     
     def get(self, key: str, default=None):
@@ -344,7 +344,7 @@ class ConfigManager:
             # Get the main section
             if keys[0] == 'app':
                 if keys[1] == 'version':
-                    return "2.0.0"
+                    return "2.1.0"
                 elif keys[1] == 'name':
                     return "SNAKEIUM"
             elif keys[0] == 'display':
@@ -388,4 +388,4 @@ class ConfigManager:
                 self.statistics[keys[1]] = value
                 
         except (AttributeError, IndexError) as e:
-            print(f"⚠️ Failed to set {key} = {value}: {e}")
+            print(f"Warning: Failed to set {key} = {value}: {e}")

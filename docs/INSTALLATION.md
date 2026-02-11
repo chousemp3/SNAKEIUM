@@ -1,4 +1,4 @@
-# SNAKEIUM 2.0 Installation Guide
+# SNAKEIUM 2.1 Installation Guide
 
 ## Quick Installation
 
@@ -11,7 +11,7 @@ cd SNAKEIUM
 # Install dependencies
 pip install -r requirements.txt
 
-# Run SNAKEIUM 2.0
+# Run SNAKEIUM 2.1
 python main.py
 ```
 
@@ -33,7 +33,7 @@ Download the pre-built executable for your platform:
 - **macOS**: `snakeium-macos`
 - **Linux**: `snakeium-linux`
 
-## 📋 System Requirements
+## System Requirements
 
 ### Minimum
 - Python 3.8+
@@ -81,7 +81,7 @@ black src/ tests/
 4. Press M to skip music tracks
 5. Press F11 for fullscreen
 
-## ⚙️ Configuration
+## Configuration
 
 Settings are saved to `~/.snakeium/config.json` automatically.
 You can also create custom configuration files and load them with:

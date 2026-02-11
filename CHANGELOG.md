@@ -1,132 +1,77 @@
-# 📜 SNAKEIUM Changelog
+# Changelog
 
-All notable changes to SNAKEIUM - GHOSTKITTY Edition will be documented in this file.
+All notable changes to SNAKEIUM will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2025-08-21 🎉
+---
 
-### 🎵 **GHOSTKITTY Edition Release**
+## [2.1.0] - 2025-01-XX
 
-#### ✨ Added
-- **Retro Start Menu**: 8-bit styled menu with 5 speed settings
-  - 🐌 CHILL MODE (2 moves/sec)
-  - 🎮 CLASSIC (4 moves/sec) 
-  - ⚡ FAST (6 moves/sec)
-  - 🚀 INSANE (8 moves/sec)
-  - 💀 NIGHTMARE (12 moves/sec)
+### Added
+- High score system with JSON persistence (`~/.snakeium/high_scores.json`)
+- Input buffering: queues up to 2 direction changes for responsive controls
+- F2 toggle for grid overlay
+- F3 toggle for FPS counter
+- Death animation with screen shake effect
+- "NEW HIGH SCORE" notification on game over screen
+- Best score display during gameplay
+- Default menu selection set to CLASSIC instead of CHILL
 
-- **Music System**: Complete GHOSTKITTY soundtrack integration
-  - 75 original GHOSTKITTY tracks
-  - Seamless looping and track switching
-  - Music metadata display
-  - Skip track functionality (M key)
+### Fixed
+- Duplicate `pygame.quit()` call causing shutdown errors
+- Duplicate `import os` statement
+- Config values immediately overridden by legacy constants
+- Hardcoded music path replaced with configurable empty default
+- Window size inconsistency (standardized to 1400x900)
+- Comments referencing "120Hz" corrected to "60 FPS"
+- Double update of visual effects each frame causing performance waste
+- Broken emoji characters in print output
 
-- **Enhanced Visuals**: 
-  - Pixelated 8-bit backgrounds with rainbow effects
-  - Scan line effects for authentic CRT feel
-  - Animated geometric backgrounds (pyramids, triangles)
-  - Particle effects for food consumption
-  - Dynamic color palettes
+### Changed
+- Full rewrite of standalone `snakeium.py` (1852 lines reduced to ~1100 clean lines)
+- Version bumped across all modules to 2.1.0
+- All print output uses plain text (no emoji characters)
 
-- **Power-up System**:
-  - 🔵 Speed Boost (5 seconds)
-  - 🟡 Score Multiplier (2x for 10 seconds)
-  - 🟣 Rainbow Mode (psychedelic colors)
-  - 🟠 Mega Food (extra large food pieces)
+### Removed
+- Redundant files: `setup_backup.py`, `setup_broken.py`, `add_screenshot.sh`, `screenshot_helper.sh`
+- Duplicate documentation: `GITHUB_UPLOAD.md`, `README_v1.md`, `DEVELOPMENT.md`, `PERFORMANCE.md`, `QUICKSTART.md`
+- Superseded test scripts: `windows_test.py`, `ci_test.py`
+- Duplicate `mutagen` entry in requirements.txt
 
-- **Ultra-smooth Movement**: 
-  - 60 FPS locked gameplay
-  - Easing functions for professional feel
-  - Sub-pixel positioning
-  - Interpolated movement animations
+---
 
-#### 🔧 Technical Improvements
-- **Safe Mode**: Windowed mode prevents system freezing
-- **Dynamic Background**: Fills entire window regardless of size
-- **Error Handling**: Comprehensive error catching and recovery
-- **Performance Monitoring**: Real-time FPS tracking and warnings
-- **Memory Optimization**: Reduced particle counts and effect complexity
+## [2.0.0] - 2025-08-21
 
-#### 🎮 Gameplay Features
-- **Progressive Scoring**: Points scale with snake length and speed
-- **Game States**: Menu → Playing → Game Over flow
-- **Pause System**: Space to pause/resume with overlay
-- **Restart Functionality**: Quick restart from game over
+### Added
+- Modular architecture: `game_engine.py`, `config_manager.py`, `audio_manager.py`, `ui_manager.py`
+- Multiple game modes: Classic, Time Attack, Survival, Maze, Challenge
+- Comprehensive configuration system with JSON persistence
+- Theme system: GHOSTKITTY, Neon, Retro, Minimal, Custom
+- Enhanced power-up system with 8 power-up types
+- Procedural sound effect generation
+- Statistics tracking and achievement framework
+- Mouse support for menus and settings
+- `main.py` entry point with `--legacy` flag
 
-#### 🐛 Fixed
-- Background not filling entire window
-- Speed settings not affecting snake movement
-- Music not playing in safe mode
-- Window freezing issues in fullscreen
-- Performance drops with visual effects
+### Changed
+- Project restructured into `src/snakeium/` package
+- Setup script updated for package distribution
+- CI workflow expanded for Python 3.8-3.11
 
-#### 📱 Compatibility
-- **Cross-platform**: Windows, macOS, Linux support
-- **Python 3.8+**: Modern Python compatibility
-- **Dynamic Sizing**: Works with any window resolution
-- **Graceful Degradation**: Fallbacks for missing features
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+---
 
 ## [1.0.0] - 2025-08-21
 
 ### Added
-- 🎮 **Core Game Features**
-  - Modern Snake game with 120Hz ultra-smooth movement
-  - 8-bit pixel art snake and apple sprites
-  - Wrap-around screen edges (no wall deaths)
-  - Progressive difficulty scaling
-  - Score system with visual feedback
-
-- 🎵 **Dynamic Music System**
-  - Automatic MP3 file detection and playback
-  - Support for custom music folders
-  - Shuffle and sequential playback modes
-  - Volume control and skip functionality
-  - Graceful fallback when music unavailable
-
-- ⚡ **Power-up System**
-  - Speed Boost: Temporary speed increase
-  - Score Multiplier: 3x points for 10 seconds
-  - Rainbow Mode: Rainbow snake with particle trails
-  - Mega Food: Instant growth by 3 segments
-
-- 🌈 **Visual Effects**
-  - Animated rainbow gradient background
-  - Geometric effects: rotating pyramids and triangles
-  - Particle explosion systems
-  - Smooth sprite animations and interpolation
-  - Fullscreen experience with adaptive UI
-
-- 🛠️ **Technical Features**
-  - Command-line argument support
-  - Configurable performance settings
-  - Error handling and graceful degradation
-  - Cross-platform compatibility
-  - Comprehensive documentation
-
-### Technical Details
-- **Performance**: Optimized for 120 FPS with configurable target
-- **Graphics**: Hardware-accelerated rendering with pygame
-- **Audio**: MP3 support via pygame.mixer
-- **Dependencies**: pygame, mutagen (optional), numpy (optional)
-
-### Command Line Options
-```bash
---music-folder PATH      # Custom music directory
---no-music              # Disable background music
---no-effects            # Disable geometric effects
---fps INTEGER           # Set target FPS
---windowed              # Run in windowed mode
---resolution WxH        # Set window resolution
---volume FLOAT          # Set music volume
---debug                 # Enable debug output
-```
-
-### Known Issues
-- None reported
-
-### Credits
-- Inspired by classic Snake games
-- Music integration designed for GHOSTKITTY collection
-- Built with pygame and modern Python practices
+- Core Snake gameplay with 60 FPS movement
+- Five speed settings: Chill, Classic, Fast, Insane, Nightmare
+- GHOSTKITTY music system with auto-detection and metadata display
+- Power-up system: speed boost, score multiplier, rainbow mode, mega food
+- Animated backgrounds with rainbow gradients and geometric effects
+- Particle effects for food collection
+- Scan line overlay for retro CRT aesthetic
+- Pause and restart functionality
+- Cross-platform support: Windows, macOS, Linux
+- Command-line arguments for music folder, resolution, volume, and debug mode

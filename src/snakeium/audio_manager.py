@@ -71,7 +71,7 @@ class MusicManager:
         for folder in potential_folders:
             if os.path.exists(folder):
                 self.music_folders.append(folder)
-                print(f"🎵 Found music folder: {folder}")
+                print(f"Found music folder: {folder}")
     
     def _scan_music_files(self):
         """Scan for music files in specified folders."""
@@ -87,7 +87,7 @@ class MusicManager:
                         full_path = os.path.join(root, file)
                         self.music_files.append(full_path)
         
-        print(f"🎵 Found {len(self.music_files)} music files")
+        print(f"Found {len(self.music_files)} music files")
     
     def get_metadata(self, file_path: str) -> Dict[str, str]:
         """Get metadata for a music file."""
@@ -113,7 +113,7 @@ class MusicManager:
             return metadata
             
         except Exception as e:
-            print(f"⚠️  Error reading metadata for {file_path}: {e}")
+            print(f"Warning: Error reading metadata for {file_path}: {e}")
             metadata = {"title": os.path.basename(file_path), "artist": "Unknown", "album": "Unknown"}
             self.metadata_cache[file_path] = metadata
             return metadata
@@ -147,7 +147,7 @@ class MusicManager:
             return song_path
             
         except Exception as e:
-            print(f"⚠️  Error playing music: {e}")
+            print(f"Warning: Error playing music: {e}")
             return None
     
     def set_volume(self, volume: float):
@@ -208,10 +208,10 @@ class SoundEffectManager:
             self.sounds[AudioEvent.PAUSE] = self._generate_pause_sound(sample_rate)
             self.sounds[AudioEvent.RESUME] = self._generate_resume_sound(sample_rate)
             
-            print("🔊 Sound effects generated successfully")
+            print("Sound effects generated successfully")
             
         except Exception as e:
-            print(f"⚠️  Error generating sound effects: {e}")
+            print(f"Warning: Error generating sound effects: {e}")
     
     def _generate_chirp(self, frequency: float, duration: float, sample_rate: int) -> pygame.mixer.Sound:
         """Generate a chirp sound effect."""
@@ -292,7 +292,7 @@ class SoundEffectManager:
                 sound.set_volume(self.volume)
                 sound.play()
             except Exception as e:
-                print(f"⚠️  Error playing sound effect {event}: {e}")
+                print(f"Warning: Error playing sound effect {event}: {e}")
     
     def set_volume(self, volume: float):
         """Set sound effects volume (0.0 - 1.0)."""
@@ -309,9 +309,9 @@ class AudioManager:
         try:
             pygame.mixer.pre_init(frequency=22050, size=-16, channels=2, buffer=512)
             pygame.mixer.init()
-            print("✅ Audio system initialized")
+            print("Audio system initialized")
         except Exception as e:
-            print(f"❌ Failed to initialize audio: {e}")
+            print(f"Failed to initialize audio: {e}")
             return
         
         # Initialize managers
@@ -394,6 +394,6 @@ class AudioManager:
         """Clean up audio resources."""
         try:
             pygame.mixer.quit()
-            print("🔇 Audio system cleaned up")
+            print("Audio system cleaned up")
         except:
             pass

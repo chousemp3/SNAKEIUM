@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for SNAKEIUM 2.0 - GHOSTKITTY Edition
+Setup script for SNAKEIUM 2.1 - GHOSTKITTY Edition
 Enhanced modular Snake game with advanced features
 """
 
@@ -14,7 +14,7 @@ def read_readme():
         with open("README.md", "r", encoding="utf-8") as f:
             return f.read()
     except:
-        return "A modern retro Snake game with GHOSTKITTY music - Enhanced 2.0 Edition"
+        return "A modern retro Snake game with GHOSTKITTY music - Enhanced 2.1 Edition"
 
 # Read requirements
 def read_requirements(filename="requirements.txt"):

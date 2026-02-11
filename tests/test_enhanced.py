@@ -24,10 +24,10 @@ def test_imports():
         from snakeium.audio_manager import AudioManager
         from snakeium.ui_manager import UIManager
         from snakeium.game_engine import Game
-        print("✅ All enhanced modules imported successfully")
+        print("All enhanced modules imported successfully")
         assert True  # Test passed
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"Import error: {e}")
         pytest.fail(f"Import error: {e}")
 
 def test_config_manager():
@@ -47,10 +47,10 @@ def test_config_manager():
         scores = config.get_high_scores("test_mode")
         assert 1000 in scores
         
-        print("✅ ConfigManager tests passed")
+        print("ConfigManager tests passed")
         assert True  # Test passed
     except Exception as e:
-        print(f"❌ ConfigManager test failed: {e}")
+        print(f"ConfigManager test failed: {e}")
         pytest.fail(f"ConfigManager test failed: {e}")
 
 def test_audio_manager():
@@ -66,10 +66,10 @@ def test_audio_manager():
         # Test sound generation
         assert audio.sfx_manager is not None
         
-        print("✅ AudioManager tests passed")
+        print("AudioManager tests passed")
         assert True  # Test passed
     except Exception as e:
-        print(f"❌ AudioManager test failed: {e}")
+        print(f"AudioManager test failed: {e}")
         pytest.fail(f"AudioManager test failed: {e}")
 
 def test_game_engine():
@@ -96,10 +96,10 @@ def test_game_engine():
         food = Food(20, 20, snake.body)
         assert food.position not in snake.body
         
-        print("✅ Game engine tests passed")
+        print("Game engine tests passed")
         assert True  # Test passed
     except Exception as e:
-        print(f"❌ Game engine test failed: {e}")
+        print(f"Game engine test failed: {e}")
         pytest.fail(f"Game engine test failed: {e}")
 
 def test_legacy_compatibility():
@@ -111,13 +111,13 @@ def test_legacy_compatibility():
             sys.path.insert(0, str(legacy_path))
             
             # This will fail if legacy files aren't copied yet, that's OK
-            print("⚠️  Legacy compatibility test skipped (files not found)")
+            print("Legacy compatibility test skipped (files not found)")
             assert True
         else:
-            print("⚠️  Legacy directory not found, skipping test")
+            print("Legacy directory not found, skipping test")
             assert True
     except Exception as e:
-        print(f"⚠️  Legacy test failed (expected): {e}")
+        print(f"Legacy test failed (expected): {e}")
         assert True  # This is acceptable
 
 # Tests can be run with: python -m pytest tests/

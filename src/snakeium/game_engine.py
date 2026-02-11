@@ -198,14 +198,14 @@ class PowerUp:
         
         # Type-specific properties
         self.properties = {
-            PowerUpType.SPEED_BOOST: {'color': (0, 191, 255), 'symbol': '⚡'},
-            PowerUpType.SCORE_MULTIPLIER: {'color': (255, 255, 0), 'symbol': '💎'},
-            PowerUpType.RAINBOW_MODE: {'color': (138, 43, 226), 'symbol': '🌈'},
-            PowerUpType.MEGA_FOOD: {'color': (255, 140, 0), 'symbol': '🍎'},
-            PowerUpType.SHIELD: {'color': (0, 255, 0), 'symbol': '🛡️'},
-            PowerUpType.SLOW_TIME: {'color': (128, 0, 128), 'symbol': '⏰'},
-            PowerUpType.DOUBLE_SCORE: {'color': (255, 69, 0), 'symbol': '💰'},
-            PowerUpType.TELEPORT: {'color': (0, 255, 255), 'symbol': '🌀'}
+            PowerUpType.SPEED_BOOST: {'color': (0, 191, 255), 'symbol': 'S'},
+            PowerUpType.SCORE_MULTIPLIER: {'color': (255, 255, 0), 'symbol': 'x'},
+            PowerUpType.RAINBOW_MODE: {'color': (138, 43, 226), 'symbol': 'R'},
+            PowerUpType.MEGA_FOOD: {'color': (255, 140, 0), 'symbol': 'M'},
+            PowerUpType.SHIELD: {'color': (0, 255, 0), 'symbol': '+'},
+            PowerUpType.SLOW_TIME: {'color': (128, 0, 128), 'symbol': 'T'},
+            PowerUpType.DOUBLE_SCORE: {'color': (255, 69, 0), 'symbol': 'D'},
+            PowerUpType.TELEPORT: {'color': (0, 255, 255), 'symbol': 'W'}
         }
     
     def _generate_position(self, snake_body: List[Position]) -> Position:
@@ -509,7 +509,7 @@ class Game:
         # Display setup
         width, height, flags = self.config.get_display_mode()
         self.screen = pygame.display.set_mode((width, height), flags)
-        pygame.display.set_caption("🐍 SNAKEIUM 2.0 - GHOSTKITTY Edition 🎵")
+        pygame.display.set_caption("SNAKEIUM 2.1 - GHOSTKITTY Edition")
         
         # Game clock
         self.clock = pygame.time.Clock()
@@ -548,7 +548,7 @@ class Game:
         self.bg_hue = 0.0
         self.bg_effects = []
         
-        print("🎮 SNAKEIUM 2.0 initialized successfully!")
+        print("SNAKEIUM 2.1 initialized successfully")
     
     def run(self):
         """Main game loop."""
@@ -572,7 +572,7 @@ class Game:
             if self.audio:
                 new_song = self.audio.check_music()
                 if new_song:
-                    print(f"🎵 Now playing: {new_song}")
+                    print(f"Now playing: {new_song}")
         
         # Cleanup
         self.cleanup()
@@ -646,7 +646,7 @@ class Game:
             if self.audio:
                 new_song = self.audio.skip_track()
                 if new_song:
-                    print(f"🎵 Skipped to: {new_song}")
+                    print(f"Skipped to: {new_song}")
         elif key == self.config.controls.menu_key:
             self.pause_game()
     
@@ -675,7 +675,7 @@ class Game:
         if self.audio:
             self.audio.play_sound(AudioEvent.MENU_SELECT)
         
-        print(f"🎮 Started {self.current_mode.value} mode")
+        print(f"Started {self.current_mode.value} mode")
     
     def pause_game(self):
         """Pause the game."""
@@ -719,9 +719,9 @@ class Game:
         if self.audio:
             self.audio.play_sound(AudioEvent.GAME_OVER)
         
-        print(f"💀 Game Over! Score: {self.score:,}, Length: {len(self.snake.body)}")
+        print(f"Game Over! Score: {self.score:,}, Length: {len(self.snake.body)}")
         if is_high_score:
-            print("🏆 NEW HIGH SCORE!")
+            print("NEW HIGH SCORE!")
     
     def restart_game(self):
         """Restart the current game."""
@@ -1021,7 +1021,7 @@ class Game:
             self.audio.cleanup()
         
         pygame.quit()
-        print("🔄 SNAKEIUM 2.0 shut down successfully!")
+        print("SNAKEIUM 2.1 shut down successfully")
 
 
 def main():
@@ -1052,9 +1052,9 @@ def main():
         game.run()
         
     except KeyboardInterrupt:
-        print("\n🛑 Game interrupted by user")
+        print("\nGame interrupted by user")
     except Exception as e:
-        print(f"💥 Fatal error: {e}")
+        print(f"Fatal error: {e}")
         import traceback
         traceback.print_exc()
 
